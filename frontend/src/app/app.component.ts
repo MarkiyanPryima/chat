@@ -1,5 +1,4 @@
-import {AfterViewInit, Component, OnInit, ViewChild} from '@angular/core';
-import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
+import {Component, OnInit} from '@angular/core';
 import {ChatService} from './services/chat/chat.service';
 import {userList} from '../assets/users/userList';
 
@@ -8,7 +7,7 @@ import {userList} from '../assets/users/userList';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, AfterViewInit {
+export class AppComponent implements OnInit {
     userList;
     roomId: string;
     messageText: string;
@@ -20,7 +19,6 @@ export class AppComponent implements OnInit, AfterViewInit {
     private storageArray = [];
 
     constructor(
-        private modalService: NgbModal,
         private chatService: ChatService
     ) {
         this.userList = userList;
@@ -35,10 +33,6 @@ export class AppComponent implements OnInit, AfterViewInit {
                     this.messageArray = this.storageArray[storeIndex].chats;
                 }
             });
-    }
-
-    ngAfterViewInit(): void {
-
     }
 
     login(): void {
@@ -66,7 +60,6 @@ export class AppComponent implements OnInit, AfterViewInit {
 
         this.join(this.currentUser.name, this.roomId);
     }
-
 
     join(username: string, roomId: string): void {
         this.chatService.joinRoom({user: username, room: roomId});
